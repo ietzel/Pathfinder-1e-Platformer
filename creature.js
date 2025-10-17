@@ -15,4 +15,37 @@ class Creature {
     move() {
 
     }
+    acrobatics() {
+
+    }
+    bluff() {
+        
+    }
+    climb() {
+
+    }
+    craft() {
+
+    }
+    diplomacy() {
+        
+    }
+    escapeartist() {
+
+    }
+    perception() {
+
+    }
+    sensemotive() {
+        
+    }
+    stealth() {
+
+    }
+    survival() {
+
+    }
+    swim() {
+        
+    }
 }
