@@ -6,14 +6,11 @@
         body { background: #333; }
         canvas { background: #000; display: block; margin: 20px auto; }
     </style>
-    <script src="data.js"></script>
 </head>
 <body>
     <canvas id="gameCanvas" width="1000" height="800"></canvas>
     <script src="main.js"></script>
     <script src="table.js"></script>
-    <script>
-        document.getElementById('table-container').innerHTML = generateHTMLTable(effectsList, effectsMatrix);
-    </script>
+    <script src="creature.js"></script>
 </body>
 </html>
