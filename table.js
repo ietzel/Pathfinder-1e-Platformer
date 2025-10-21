@@ -1,111 +1,306 @@
-// Define the array of conditions, abilities, and effects
-const effectsList = [
-    'Bleed',
-    'Blinded',
-    'Charmed',
-    'Confused',
-    'Cowering',
-    'Dazzled',
-    'Deafened',
-    'Diseased',
-    'Drained',
-    'Exhausted',
-    'Fascinated',
-    'Fatigued',
-    'Flat-Footed',
-    'Frightened',
-    'Grappled',
-    'Nauseated',
-    'Panicked',
-    'Paralyzed',
-    'Poisoned',
-    'Prone',
-    'Shaken',
-    'Sickened',
-    'Staggered',
-    'Stunned',
-    'Unconscious',
-    'STR Damage',
-    'DEX Damage',
-    'CON Damage',
-    'INT Damage',
-    'WIS Damage',
-    'CHA Damage',
+const causeAndEffectMatrix = [
+  // 0: Cause: Intimidation
+  [
+    "The Intimidation led to successful Intimidation.",
+    "The Intimidation led to successful Athletics.",
+    "The Intimidation led to successful Engineering.",
+    "The Intimidation led to successful Physical Science.",
+    "The Intimidation led to successful Bluff.",
+    "The Intimidation led to successful Diplomacy.",
+    "The Intimidation led to successful Performance.",
+    "The Intimidation led to successful Linguistics.",
+    "The Intimidation led to successful Medicine.",
+    "The Intimidation led to successful Profession.",
+    "The Intimidation led to successful Craft.",
+    "The Intimidation led to successful Survival.",
+    "The Intimidation led to successful Perception.",
+    "The Intimidation led to successful Computers.",
+    "The Intimidation led to successful Stealth.",
+    "The Intimidation led to successful Sense Motive."
+  ],
+  // 1: Cause: Athletics
+  [
+    "Using Athletics paved the way for a successful Intimidation.",
+    "Using Athletics paved the way for a successful Athletics.",
+    "Using Athletics paved the way for a successful Engineering.",
+    "Using Athletics paved the way for a successful Physical Science.",
+    "Using Athletics paved the way for a successful Bluff.",
+    "Using Athletics paved the way for a successful Diplomacy.",
+    "Using Athletics paved the way for a successful Performance.",
+    "Using Athletics paved the way for a successful Linguistics.",
+    "Using Athletics paved the way for a successful Medicine.",
+    "Using Athletics paved the way for a successful Profession.",
+    "Using Athletics paved the way for a successful Craft.",
+    "Using Athletics paved the way for a successful Survival.",
+    "Using Athletics paved the way for a successful Perception.",
+    "Using Athletics paved the way for a successful Computers.",
+    "Using Athletics paved the way for a successful Stealth.",
+    "Using Athletics paved the way for a successful Sense Motive."
+  ],
+  // 2: Cause: Engineering
+  [
+    "A display of Engineering was the key to a successful Intimidation.",
+    "A display of Engineering was the key to a successful Athletics.",
+    "A display of Engineering was the key to a successful Engineering.",
+    "A display of Engineering was the key to a successful Physical Science.",
+    "A display of Engineering was the key to a successful Bluff.",
+    "A display of Engineering was the key to a successful Diplomacy.",
+    "A display of Engineering was the key to a successful Performance.",
+    "A display of Engineering was the key to a successful Linguistics.",
+    "A display of Engineering was the key to a successful Medicine.",
+    "A display of Engineering was the key to a successful Profession.",
+    "A display of Engineering was the key to a successful Craft.",
+    "A display of Engineering was the key to a successful Survival.",
+    "A display of Engineering was the key to a successful Perception.",
+    "A display of Engineering was the key to a successful Computers.",
+    "A display of Engineering was the key to a successful Stealth.",
+    "A display of Engineering was the key to a successful Sense Motive."
+  ],
+  // 3: Cause: Physical Science
+  [
+    "Success in Intimidation was achieved through Physical Science.",
+    "Success in Athletics was achieved through Physical Science.",
+    "Success in Engineering was achieved through Physical Science.",
+    "Success in Physical Science was achieved through Physical Science.",
+    "Success in Bluff was achieved through Physical Science.",
+    "Success in Diplomacy was achieved through Physical Science.",
+    "Success in Performance was achieved through Physical Science.",
+    "Success in Linguistics was achieved through Physical Science.",
+    "Success in Medicine was achieved through Physical Science.",
+    "Success in Profession was achieved through Physical Science.",
+    "Success in Craft was achieved through Physical Science.",
+    "Success in Survival was achieved through Physical Science.",
+    "Success in Perception was achieved through Physical Science.",
+    "Success in Computers was achieved through Physical Science.",
+    "Success in Stealth was achieved through Physical Science.",
+    "Success in Sense Motive was achieved through Physical Science."
+  ],
+  // 4: Cause: Bluff
+  [
+    "The application of a Bluff directly enabled a successful Intimidation.",
+    "The application of a Bluff directly enabled a successful Athletics.",
+    "The application of a Bluff directly enabled a successful Engineering.",
+    "The application of a Bluff directly enabled a successful Physical Science.",
+    "The application of a Bluff directly enabled a successful Bluff.",
+    "The application of a Bluff directly enabled a successful Diplomacy.",
+    "The application of a Bluff directly enabled a successful Performance.",
+    "The application of a Bluff directly enabled a successful Linguistics.",
+    "The application of a Bluff directly enabled a successful Medicine.",
+    "The application of a Bluff directly enabled a successful Profession.",
+    "The application of a Bluff directly enabled a successful Craft.",
+    "The application of a Bluff directly enabled a successful Survival.",
+    "The application of a Bluff directly enabled a successful Perception.",
+    "The application of a Bluff directly enabled a successful Computers.",
+    "The application of a Bluff directly enabled a successful Stealth.",
+    "The application of a Bluff directly enabled a successful Sense Motive."
+  ],
+  // 5: Cause: Diplomacy
+  [
+    "Diplomacy created the opportunity for a successful Intimidation.",
+    "Diplomacy created the opportunity for a successful Athletics.",
+    "Diplomacy created the opportunity for a successful Engineering.",
+    "Diplomacy created the opportunity for a successful Physical Science.",
+    "Diplomacy created the opportunity for a successful Bluff.",
+    "Diplomacy created the opportunity for a successful Diplomacy.",
+    "Diplomacy created the opportunity for a successful Performance.",
+    "Diplomacy created the opportunity for a successful Linguistics.",
+    "Diplomacy created the opportunity for a successful Medicine.",
+    "Diplomacy created the opportunity for a successful Profession.",
+    "Diplomacy created the opportunity for a successful Craft.",
+    "Diplomacy created the opportunity for a successful Survival.",
+    "Diplomacy created the opportunity for a successful Perception.",
+    "Diplomacy created the opportunity for a successful Computers.",
+    "Diplomacy created the opportunity for a successful Stealth.",
+    "Diplomacy created the opportunity for a successful Sense Motive."
+  ],
+  // 6: Cause: Performance
+  [
+    "A moment of Performance translated into a successful Intimidation.",
+    "A moment of Performance translated into a successful Athletics.",
+    "A moment of Performance translated into a successful Engineering.",
+    "A moment of Performance translated into a successful Physical Science.",
+    "A moment of Performance translated into a successful Bluff.",
+    "A moment of Performance translated into a successful Diplomacy.",
+    "A moment of Performance translated into a successful Performance.",
+    "A moment of Performance translated into a successful Linguistics.",
+    "A moment of Performance translated into a successful Medicine.",
+    "A moment of Performance translated into a successful Profession.",
+    "A moment of Performance translated into a successful Craft.",
+    "A moment of Performance translated into a successful Survival.",
+    "A moment of Performance translated into a successful Perception.",
+    "A moment of Performance translated into a successful Computers.",
+    "A moment of Performance translated into a successful Stealth.",
+    "A moment of Performance translated into a successful Sense Motive."
+  ],
+  // 7: Cause: Linguistics
+  [
+    "With Linguistics, the outcome was a successful Intimidation.",
+    "With Linguistics, the outcome was a successful Athletics.",
+    "With Linguistics, the outcome was a successful Engineering.",
+    "With Linguistics, the outcome was a successful Physical Science.",
+    "With Linguistics, the outcome was a successful Bluff.",
+    "With Linguistics, the outcome was a successful Diplomacy.",
+    "With Linguistics, the outcome was a successful Performance.",
+    "With Linguistics, the outcome was a successful Linguistics.",
+    "With Linguistics, the outcome was a successful Medicine.",
+    "With Linguistics, the outcome was a successful Profession.",
+    "With Linguistics, the outcome was a successful Craft.",
+    "With Linguistics, the outcome was a successful Survival.",
+    "With Linguistics, the outcome was a successful Perception.",
+    "With Linguistics, the outcome was a successful Computers.",
+    "With Linguistics, the outcome was a successful Stealth.",
+    "With Linguistics, the outcome was a successful Sense Motive."
+  ],
+  // 8: Cause: Medicine
+  [
+    "Medicine proved instrumental for a successful Intimidation.",
+    "Medicine proved instrumental for a successful Athletics.",
+    "Medicine proved instrumental for a successful Engineering.",
+    "Medicine proved instrumental for a successful Physical Science.",
+    "Medicine proved instrumental for a successful Bluff.",
+    "Medicine proved instrumental for a successful Diplomacy.",
+    "Medicine proved instrumental for a successful Performance.",
+    "Medicine proved instrumental for a successful Linguistics.",
+    "Medicine proved instrumental for a successful Medicine.",
+    "Medicine proved instrumental for a successful Profession.",
+    "Medicine proved instrumental for a successful Craft.",
+    "Medicine proved instrumental for a successful Survival.",
+    "Medicine proved instrumental for a successful Perception.",
+    "Medicine proved instrumental for a successful Computers.",
+    "Medicine proved instrumental for a successful Stealth.",
+    "Medicine proved instrumental for a successful Sense Motive."
+  ],
+  // 9: Cause: Profession
+  [
+    "The path to a successful Intimidation was cleared by a Profession.",
+    "The path to a successful Athletics was cleared by a Profession.",
+    "The path to a successful Engineering was cleared by a Profession.",
+    "The path to a successful Physical Science was cleared by a Profession.",
+    "The path to a successful Bluff was cleared by a Profession.",
+    "The path to a successful Diplomacy was cleared by a Profession.",
+    "The path to a successful Performance was cleared by a Profession.",
+    "The path to a successful Linguistics was cleared by a Profession.",
+    "The path to a successful Medicine was cleared by a Profession.",
+    "The path to a successful Profession was cleared by a Profession.",
+    "The path to a successful Craft was cleared by a Profession.",
+    "The path to a successful Survival was cleared by a Profession.",
+    "The path to a successful Perception was cleared by a Profession.",
+    "The path to a successful Computers was cleared by a Profession.",
+    "The path to a successful Stealth was cleared by a Profession.",
+    "The path to a successful Sense Motive was cleared by a Profession."
+  ],
+  // 10: Cause: Craft
+  [
+    "A successful Intimidation was the direct consequence of a Craft.",
+    "A successful Athletics was the direct consequence of a Craft.",
+    "A successful Engineering was the direct consequence of a Craft.",
+    "A successful Physical Science was the direct consequence of a Craft.",
+    "A successful Bluff was the direct consequence of a Craft.",
+    "A successful Diplomacy was the direct consequence of a Craft.",
+    "A successful Performance was the direct consequence of a Craft.",
+    "A successful Linguistics was the direct consequence of a Craft.",
+    "A successful Medicine was the direct consequence of a Craft.",
+    "A successful Profession was the direct consequence of a Craft.",
+    "A successful Craft was the direct consequence of a Craft.",
+    "A successful Survival was the direct consequence of a Craft.",
+    "A successful Perception was the direct consequence of a Craft.",
+    "A successful Computers was the direct consequence of a Craft.",
+    "A successful Stealth was the direct consequence of a Craft.",
+    "A successful Sense Motive was the direct consequence of a Craft."
+  ],
+  // 11: Cause: Survival
+  [
+    "Leveraging Survival led to a successful Intimidation.",
+    "Leveraging Survival led to a successful Athletics.",
+    "Leveraging Survival led to a successful Engineering.",
+    "Leveraging Survival led to a successful Physical Science.",
+    "Leveraging Survival led to a successful Bluff.",
+    "Leveraging Survival led to a successful Diplomacy.",
+    "Leveraging Survival led to a successful Performance.",
+    "Leveraging Survival led to a successful Linguistics.",
+    "Leveraging Survival led to a successful Medicine.",
+    "Leveraging Survival led to a successful Profession.",
+    "Leveraging Survival led to a successful Craft.",
+    "Leveraging Survival led to a successful Survival.",
+    "Leveraging Survival led to a successful Perception.",
+    "Leveraging Survival led to a successful Computers.",
+    "Leveraging Survival led to a successful Stealth.",
+    "Leveraging Survival led to a successful Sense Motive."
+  ],
+  // 12: Cause: Perception
+  [
+    "It was Perception that brought about a successful Intimidation.",
+    "It was Perception that brought about a successful Athletics.",
+    "It was Perception that brought about a successful Engineering.",
+    "It was Perception that brought about a successful Physical Science.",
+    "It was Perception that brought about a successful Bluff.",
+    "It was Perception that brought about a successful Diplomacy.",
+    "It was Perception that brought about a successful Performance.",
+    "It was Perception that brought about a successful Linguistics.",
+    "It was Perception that brought about a successful Medicine.",
+    "It was Perception that brought about a successful Profession.",
+    "It was Perception that brought about a successful Craft.",
+    "It was Perception that brought about a successful Survival.",
+    "It was Perception that brought about a successful Perception.",
+    "It was Perception that brought about a successful Computers.",
+    "It was Perception that brought about a successful Life Science.",
+    "It was Perception that brought about a successful Sense Motive."
+  ],
+  // 13: Cause: Computers
+  [
+    "The foundation for a successful Intimidation was built with Computers.",
+    "The foundation for a successful Athletics was built with Computers.",
+    "The foundation for a successful Engineering was built with Computers.",
+    "The foundation for a successful Physical Science was built with Computers.",
+    "The foundation for a successful Bluff was built with Computers.",
+    "The foundation for a successful Diplomacy was built with Computers.",
+    "The foundation for a successful Performance was built with Computers.",
+    "The foundation for a successful Linguistics was built with Computers.",
+    "The foundation for a successful Medicine was built with Computers.",
+    "The foundation for a successful Profession was built with Computers.",
+    "The foundation for a successful Craft was built with Computers.",
+    "The foundation for a successful Survival was built with Computers.",
+    "The foundation for a successful Perception was built with Computers.",
+    "The foundation for a successful Computers was built with Computers.",
+    "The foundation for a successful Life Science was built with Computers.",
+    "The foundation for a successful Sense Motive was built with Computers."
+  ],
+  // 14: Cause: Life Science
+  [
+    "A successful Intimidation was made possible by applying Life Science.",
+    "A successful Athletics was made possible by applying Life Science.",
+    "A successful Engineering was made possible by applying Life Science.",
+    "A successful Physical Science was made possible by applying Life Science.",
+    "A successful Bluff was made possible by applying Life Science.",
+    "A successful Diplomacy was made possible by applying Life Science.",
+    "A successful Performance was made possible by applying Life Science.",
+    "A successful Linguistics was made possible by applying Life Science.",
+    "A successful Medicine was made possible by applying Life Science.",
+    "A successful Profession was made possible by applying Life Science.",
+    "A successful Craft was made possible by applying Life Science.",
+    "A successful Survival was made possible by applying Life Science.",
+    "A successful Perception was made possible by applying Life Science.",
+    "A successful Computers was made possible by applying Life Science.",
+    "A successful Life Science was made possible by applying Life Science.",
+    "A successful Sense Motive was made possible by applying Life Science."
+  ],
+  // 15: Cause: Sense Motive
+  [
+    "Through an act of Sense Motive, the Intimidation was successful.",
+    "Through an act of Sense Motive, the Athletics was successful.",
+    "Through an act of Sense Motive, the Engineering was successful.",
+    "Through an act of Sense Motive, the Physical Science was successful.",
+    "Through an act of Sense Motive, the Bluff was successful.",
+    "Through an act of Sense Motive, the Diplomacy was successful.",
+    "Through an act of Sense Motive, the Performance was successful.",
+    "Through an act of Sense Motive, the Linguistics was successful.",
+    "Through an act of Sense Motive, the Medicine was successful.",
+    "Through an act of Sense Motive, the Profession was successful.",
+    "Through an act of Sense Motive, the Craft was successful.",
+    "Through an act of Sense Motive, the Survival was successful.",
+    "Through an act of Sense Motive, the Perception was successful.",
+    "Through an act of Sense Motive, the Computers was successful.",
+    "Through an act of Sense Motive, the Life Science was successful.",
+    "Through an act of Sense Motive, the Sense Motive was successful."
+  ]
 ];
-
-// Initialize an empty square matrix based on the effectsList length
-const matrixSize = effectsList.length;
-const effectsMatrix = Array(matrixSize).fill(null).map(() => Array(matrixSize).fill(''));
-
-// Function to mark an intersection with 'x'
-function markEffect(cause, effect) {
-    const causeIndex = effectsList.indexOf(cause);
-    const effectIndex = effectsList.indexOf(effect);
-    if (causeIndex !== -1 && effectIndex !== -1) {
-        effectsMatrix[causeIndex][effectIndex] = 'x';
-    }
-}
-
-// ---- BEGIN POPULATING THE MATRIX ----
-// Some causes can result in other effects. Note that this is not an exhaustive list.
-// The primary cause (a monster ability, a spell, environmental hazard) is assumed.
-// These entries show how one effect on a character can cause another.
-
-// A creature that is Exhausted becomes Fatigued first
-markEffect('Fatigued', 'Exhausted');
-
-// Failing a save against a Frightened effect can turn it into a Panicked effect
-markEffect('Frightened', 'Panicked');
-
-// Taking STR damage can cause a character to fall Unconscious if the damage exceeds the score
-markEffect('STR Damage', 'Unconscious');
-// Taking CON damage can cause a character to die if the damage exceeds the score
-markEffect('CON Damage', 'Unconscious');
-
-// A Grappled creature is considered Flat-Footed
-markEffect('Grappled', 'Flat-Footed');
-
-// A Prone creature is often Flat-Footed against melee attacks
-markEffect('Prone', 'Flat-Footed');
-
-// The Confused condition can cause a character to attack themself, potentially dealing damage
-// and leading to other effects.
-
-// A creature with the Staggered condition can become Unconscious if it takes too many rounds without rest
-markEffect('Staggered', 'Unconscious');
-
-// Being Blinded imposes a Flat-Footed condition
-markEffect('Blinded', 'Flat-Footed');
-
-// Some afflictions, like Crypt Fever (a curse), can cause both Disease and ability damage
-markEffect('Diseased', 'STR Damage'); // Example
-markEffect('Diseased', 'CON Damage'); // Example
-
-// A Nauseated character cannot take any standard actions and is often Flat-Footed or otherwise impaired
-markEffect('Nauseated', 'Flat-Footed');
-
-// ---- END POPULATING THE MATRIX ----
-
-// --- JS table generation ---
-function generateHTMLTable(causes, matrix) {
-    let html = '<table>';
-    // Header row
-    html += '<thead><tr><th>Cause / Effect</th>';
-    for (const effect of causes) {
-        html += `<th>${effect}</th>`;
-    }
-    html += '</tr></thead>';
-
-    // Body rows
-    html += '<tbody>';
-    for (let i = 0; i < causes.length; i++) {
-        html += `<tr><th>${causes[i]}</th>`;
-        for (let j = 0; j < causes.length; j++) {
-            html += `<td style="text-align: center;">${matrix[i][j]}</td>`;
-        }
-        html += '</tr>';
-    }
-    html += '</tbody></table>';
-
-    return html;
-}

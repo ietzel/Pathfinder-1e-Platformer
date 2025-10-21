@@ -1,51 +1,61 @@
 class Creature {
-    constructor(name, abilityScores = [str, dex, con, int, wis, cha]) {
+    constructor(name, abilityScores = [dma, itg, ste, csc]) {
         name = name;
         abilityScores = abilityScores;
-        abilityAdjusters = [0, 0, 0, 0, 0, 0];
         xp = 0;
-        savings = 0;
     }
     draw() {
 
     }
-    attack() {
-        ability = Math.max(abilityScores);
-    }
     move() {
 
     }
-    acrobatics() {
+    intimidate() {
+
+    } 
+    athletics() {
+
+    } 
+    engineering() {
+
+    }
+    physicalscience() {
 
     }
     bluff() {
-        
+
     }
-    climb() {
+    diplomacy() {
+
+    }
+    perform() {
+
+    }
+    linguistics() {
+
+    }
+    medicine() {
+
+    }
+    profession() {
 
     }
     craft() {
 
     }
-    diplomacy() {
-        
-    }
-    escapeartist() {
+    survival() {
 
     }
     perception() {
 
     }
+    computers() {
+
+    }
+    lifescience() {
+
+    }
     sensemotive() {
-        
-    }
-    stealth() {
 
-    }
-    survival() {
-
-    }
-    swim() {
-        
     }
 }
